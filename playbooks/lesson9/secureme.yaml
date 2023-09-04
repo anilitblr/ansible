@@ -1,0 +1,17 @@
+---
+- name: secure sudo
+  hosts: all
+  tasks:
+  - name: remote insecure /etc/sudoers.d/ansible file
+    file:
+      name: /etc/sudoers.d/ansible
+      state: absent
+  - name: create new and secure /etc/sudoers.d/ansible file
+    copy:
+      content: 'ansible ALL=(ALL) ALL'
+      dest: /etc/sudoers.d/ansible
+  - name: tuning /etc/sudoers.d
+    lineinfile:
+      line: 'Defaults timestamp_type=global,timestamp_timeout=120,!requiretty'
+      name: /etc/sudoers
+      validate: /usr/sbin/visudo -cf %s

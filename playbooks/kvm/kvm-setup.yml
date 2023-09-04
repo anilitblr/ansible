@@ -1,0 +1,34 @@
+---
+- name: setup KVM host
+  hosts: all
+  tasks:
+  - name: fail if KVM support is not enabled
+    command: grep -E '(svm|vmx)' /proc/cpuinfo
+    register: virtout
+  - debug:
+      var: virtout
+  - name: load required kernel modules
+    modprobe:
+      name: "{{ item }}"
+      state: present
+    loop:
+    - kvm
+    - kvm-intel
+    when: '"vmx" in virtout.stdout'
+  - name: load required kernel modules
+    modprobe:
+      name: "{{ item }}"
+      state: present
+    loop:
+    - kvm
+    - kvm-amd
+    when: '"svm" in virtout.stdout'
+  - name: install libvirtd
+    dnf:
+      name: libvirt-daemon
+      state: latest
+  - name: start and enable libvirtd
+    service:
+      name: libvirtd
+      enabled: yes
+      state: started

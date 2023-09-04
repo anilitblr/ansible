@@ -1,0 +1,24 @@
+---
+- name: create user {{ user }}
+  vars:
+    user: anil
+  hosts: ansible2
+  tasks:
+  - name: check user
+    command: id {{ user }}
+    register: iduser
+  - name:
+    debug:
+      var: iduser
+  - name: before check
+    fail:
+      msg: user already exists
+    when: iduser.rc == 0
+  - name: create user {{ user }}
+    command: useradd {{ user }}
+
+- name: continuining
+  hosts: ansible2
+  tasks:
+  - debug:
+      msg: we made it

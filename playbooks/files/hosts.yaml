@@ -1,0 +1,11 @@
+---
+- name: install hosts
+  hosts: all
+  tasks:
+  - name: install hosts
+    template:
+      src: hosts.j2
+      dest: /tmp/newhosts
+      owner: root
+      group: root
+      mode: 0644

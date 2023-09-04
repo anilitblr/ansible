@@ -1,0 +1,9 @@
+dbuserperms:
+- username: anil
+  dbaccess:
+  - books
+  - videos
+- username: kumar
+  dbaccess:
+  - staff
+  - addresses

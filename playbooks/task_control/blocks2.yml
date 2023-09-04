@@ -1,0 +1,19 @@
+- name: using blocks
+  hosts: all
+  tasks:
+    - name: intended to be successful
+      block:
+        - name: remove a file
+          file:
+            path: /var/www/html/index.html
+            stte: absent
+      rescue:
+        - name: create a file
+          file:
+            path: /tmp/rescuefile
+            state: touch
+      always:
+        - name: always write a message to logs
+          command:
+            cmd: /usr/bin/logger hello
+

@@ -1,0 +1,8 @@
+---
+- name: check cache
+  gather_facts: no
+  hosts: all
+  tasks:
+  - name: gather some facts
+    setup:
+    

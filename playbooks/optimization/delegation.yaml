@@ -1,0 +1,22 @@
+---
+- name: install start and enable httpd
+  gather_facts: false
+  hosts: rocky
+  tasks:
+  - name: remove nginx
+    package:
+      name: nginx
+      state: absent
+  - name: install package
+    package:
+      name: httpd
+      state: latest
+  - name: start and enable service
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+  - name: test httpd access
+    uri:
+      url: http://ansible1
+    delegate_to: localhost

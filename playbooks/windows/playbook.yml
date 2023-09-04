@@ -1,0 +1,11 @@
+---
+- name: create a windows user
+  hosts: win
+  tasks: 
+    - name: create windows users
+      win_user:
+        name: anil
+        password: "@nsible123"
+        state: present
+        groups: 
+          - Users

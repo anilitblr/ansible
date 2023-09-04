@@ -1,0 +1,6 @@
+---
+- name: create users
+  hosts: rocky
+  tasks:
+  - debug:
+      msg: creating user {{ user }} 

@@ -1,0 +1,14 @@
+users:
+  anil:
+    username: anil
+    homedir: /home/anil
+    shell: /bin/bash
+  kumar:
+    username: kumar
+    homedir: /home/kumar
+    shell: /bin/bash
+  babu:
+    username: babu
+    homedir: /home/babu
+    shell: /bin/bash
+    

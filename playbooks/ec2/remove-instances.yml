@@ -1,0 +1,23 @@
+- name: list instance facts
+  hosts: localhost
+  gather_facts: no
+  become: no
+  tasks:
+  - name: Gather information about all instances
+    ec2_instance_info:
+      aws_access_key: "{{ aws_access_key }}"
+      aws_secret_key: "{{ aws_secret_key }}"
+      region: us-west-2
+    register: result
+  - name: instances ID
+    debug:
+      msg: "ID: {{ item.instance_id }}"
+    loop: "{{ result.instances }}"
+  - name: remove them
+    ec2:
+      instance_id: "{{ item.instance_id }}"
+      aws_access_key: "{{ aws_access_key }}"
+      aws_secret_key: "{{ aws_secret_key }}"
+      state: absent
+      region: us-west-2
+    loop: "{{ result.instances }}"
